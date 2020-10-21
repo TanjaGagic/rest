@@ -295,33 +295,54 @@
                     }
                     break;
                 case "put":
-                
                 if(tabela=="radio_novosti"){
-
                         var values = {
-                            "novost_id": $("input[name=id_novosti_put]").val(),
-                            "naslov": $("input[name=naslov_novosti_put]").val(),
-                            "tekst":$("#tekst_novosti_put").val(),
-                            "kategorija_id": parseInt($("#kategorija_odabir_put").val())
+                            "id": $("input[name=id_novosti]").val(),
+                            "naslov": $("input[name=naslov_novosti]").val(),
+                            "tekst":$("#tekst_novosti").val(),
+                            "kategorija_id": parseInt($("#kategorija_odabir").val())
                         };
+                        //ispisaćemo te podatke u konzoli kako bismo bili siguri da dobijamo dobar izlaz
+                        //konzoli pristupamo u brauzeru sa CTRL+Shift+i i biramo tab Console
                         console.log(values);
-                        $.ajax("http://localhost:80/rest/api/novosti", 'PUT',JSON.stringify(values),function(data){
+                        //post zahtev se obrađuje na sličan način kao get
+                        //potrebna su nam dva parametra u funkciji post
+                        //url na koji šaljemo podatke
+                        //koje podatke šaljemo
+                        //i success funkcija u okviru koje prikazujemo odgovor sa servera
+                        $.post("http://localhost:80/rest/api/novosti", JSON.stringify(values),function(data){
                             alert("Odgovor od servera> "+data['poruka']);
                         });
                     }else{
+                        //na isti način radimo sa kategorijama, s tim što je potrebno da pokupimo njene vrednosti iz forme
                         var values ={
-                            "kategorija_id": parseInt($("#kategorija_odabir_put").val()),
-                            "kategorija": $("input[name=kategorija_naziv_put]").val(),
+                            "kategorija_id": $("input[name=id_kategorije]").val(),
+                            "kategorija": $("input[name=kategorija_naziv]").val(),
                         }
                         console.log(values);
-                        $.ajax("http://localhost:80/rest/api/kategorije", 'PUT', JSON.stringify(values),function(data){
+                        $.post("http://localhost:80/rest/api/kategorije", JSON.stringify(values),function(data){
                             alert("Odgovor od servera> "+data['poruka']);
                         });
                         
                     }
                     break;
+                
+                    break;
                 case "delete":
-                    //kod za bonus poene
+                var id = $("input[name=id_novosti_delete]").val();
+                if(tabela=="radio_novosti"){
+                        
+                        $.ajax("http://localhost:80/rest/api/novosti", 'DELETE', function(values){
+                           
+                           
+                        };
+                    }else{
+                        //ponavljamo istu proceduru samo za tabelu kategorije
+                        $.getJSON("http://localhost:80/rest/api/kategorije", function(data){
+                            document.getElementById("get_odgovor").innerHTML = JSON.stringify(data,null,2);
+                        });
+                    }
+                    break;
                     break;
                 default:
                     console.log("default");
