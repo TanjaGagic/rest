@@ -220,6 +220,14 @@
         $("input[name=http_zahtev]").prop('checked', false);
 
     }
+    
+
+
+
+
+
+
+
 
 
     //funkcija posaljiZahtev obrađuje pomoću AJAX-a zahteve koje šaljemo ka serveru
@@ -241,7 +249,7 @@
 
                         //getJSON funkcija ima 2 bitna parametra, a to su url koji prosleđujemo i success funkcija koja kojom obrađujemo podatke koje smo dobili
                         //data parametar u okviru funkcije, predstavlja podatke poslate sa servera u JSON formatu
-                        $.getJSON("http://localhost:8080/rest/rest/novosti", function(data){
+                        $.getJSON("http://localhost:80/rest/api/novosti", function(data){
                             //postavljamo unutrašnji HTML div bloka get_odgovor na pretty string reprezentaciju JSON objekta
                             //string reprezentacija je mogla i da se postavi samo sa JSON.stringify(data)
                             // ali postavljamo i parametre null i 2 kako bi prikaz JSONa bio čitljiv
@@ -249,7 +257,7 @@
                         });
                     }else{
                         //ponavljamo istu proceduru samo za tabelu kategorije
-                        $.getJSON("http://localhost:8080/rest/rest/kategorije", function(data){
+                        $.getJSON("http://localhost:80/rest/api/kategorije", function(data){
                             document.getElementById("get_odgovor").innerHTML = JSON.stringify(data,null,2);
                         });
                     }
@@ -271,7 +279,7 @@
                         //url na koji šaljemo podatke
                         //koje podatke šaljemo
                         //i success funkcija u okviru koje prikazujemo odgovor sa servera
-                        $.post("http://localhost:8080/rest/rest/novosti", JSON.stringify(values),function(data){
+                        $.post("http://localhost:80/rest/api/novosti", JSON.stringify(values),function(data){
                             alert("Odgovor od servera> "+data['poruka']);
                         });
                     }else{
@@ -280,14 +288,37 @@
                             "kategorija": $("input[name=kategorija_naziv]").val(),
                         }
                         console.log(values);
-                        $.post("http://localhost:8080/rest/rest/kategorije", JSON.stringify(values),function(data){
+                        $.post("http://localhost:80/rest/api/kategorije", JSON.stringify(values),function(data){
                             alert("Odgovor od servera> "+data['poruka']);
                         });
                         
                     }
                     break;
                 case "put":
-                    //kod za bonus poene
+                
+                if(tabela=="radio_novosti"){
+
+                        var values = {
+                            "novost_id": $("input[name=id_novosti_put]").val(),
+                            "naslov": $("input[name=naslov_novosti_put]").val(),
+                            "tekst":$("#tekst_novosti_put").val(),
+                            "kategorija_id": parseInt($("#kategorija_odabir_put").val())
+                        };
+                        console.log(values);
+                        $.ajax("http://localhost:80/rest/api/novosti", 'PUT',JSON.stringify(values),function(data){
+                            alert("Odgovor od servera> "+data['poruka']);
+                        });
+                    }else{
+                        var values ={
+                            "kategorija_id": parseInt($("#kategorija_odabir_put").val()),
+                            "kategorija": $("input[name=kategorija_naziv_put]").val(),
+                        }
+                        console.log(values);
+                        $.ajax("http://localhost:80/rest/api/kategorije", 'PUT', JSON.stringify(values),function(data){
+                            alert("Odgovor od servera> "+data['poruka']);
+                        });
+                        
+                    }
                     break;
                 case "delete":
                     //kod za bonus poene
