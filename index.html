@@ -311,7 +311,7 @@
                             data: JSON.stringify(values),
                             type: 'PUT', 
                             success: function(data){
-                                console.log(values);
+                                alert("Odgovor od servera> "+data['poruka'])
                         }});
                     }else{
                         var id2 = $("input[name=id_kategorije]").val();
@@ -326,7 +326,7 @@
                             data: JSON.stringify(values),
                             type: 'PUT', 
                             success: function(data){
-                            console.log(values);
+                                alert("Odgovor od servera> "+data['poruka'])
                         }});
                         
                     }
@@ -340,7 +340,7 @@
                             url: "http://localhost:80/rest/api/novosti/"+id, 
                             type: 'DELETE', 
                             success: function(data){
-                                console.log(id+" obrisan!");
+                                alert("Odgovor od servera> "+data['poruka'])
                         }});
                     }else{
 
@@ -348,7 +348,7 @@
                             url: "http://localhost:80/rest/api/kategorije/"+id, 
                             type: 'DELETE', 
                             success: function(data){
-                            console.log(id + " obrisan!");
+                                alert("Odgovor od servera> "+data['poruka'])
                         }});
                         
                     }
