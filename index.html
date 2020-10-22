@@ -295,8 +295,6 @@
                             "tekst":$("#tekst_novosti_put").val(),
                             "kategorija_id": parseInt($("#kategorija_odabir_put").val())
                         };
-                       
-                        console.log(values);
                         
                         $.ajax({
                             url: "http://localhost:8080/rest/api/novosti/"+id1, 
@@ -311,7 +309,6 @@
                             "id": $("input[name=id_kategorije]").val(),
                             "kategorija": $("input[name=kategorija_naziv_put]").val(),
                         }
-                        console.log(values);
 
                          $.ajax({
                             url: "http://localhost:8080/rest/api/kategorije/"+id2, 
@@ -319,8 +316,7 @@
                             type: 'PUT', 
                             success: function(data){
                                 alert("Odgovor od servera> "+data['poruka'])
-                        }});
-                        
+                        }});  
                     }
                 break;
                 
