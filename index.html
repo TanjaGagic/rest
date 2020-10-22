@@ -295,7 +295,32 @@
                     }
                     break;
                 case "put":
+                if(tabela=="radio_novosti"){
                 
+                        var values = {
+                            "id": $("input[name=id_novosti]").val(),
+                            "naslov": $("input[name=naslov_novosti_put]").val(),
+                            "tekst":$("#tekst_novosti_put").val(),
+                            "kategorija_id": parseInt($("#kategorija_odabir_put").val())
+                        };
+                       
+                        console.log(values);
+                        
+                        $.ajax("http://localhost:80/rest/api/novosti", 'PUT', JSON.stringify(values),function(data){
+                            alert("Odgovor od servera> "+data['poruka']);
+                        });
+                    }else{
+                        
+                        var values ={
+                            "id": $("input[name=id_kategorije]").val(),
+                            "kategorija": $("input[name=kategorija_naziv]").val(),
+                        }
+                        console.log(values);
+                        $.ajax("http://localhost:80/rest/api/kategorije", 'PUT', JSON.stringify(values),function(data){
+                            alert("Odgovor od servera> "+data['poruka']);
+                        });
+                        
+                    }
                 break;
                 
                     
