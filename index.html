@@ -295,35 +295,14 @@
                     }
                     break;
                 case "put":
-                $.put = function(url, data, callback, type){
- 
- if ( $.isFunction(data) ){
-   type = type || callback,
-   callback = data,
-   data = {
-                            "id": $("input[name=id_novosti]").val(),
-                            "naslov": $("input[name=naslov_novosti]").val(),
-                            "tekst":$("#tekst_novosti").val(),
-                            "kategorija_id": parseInt($("#kategorija_odabir").val())
-
-   }
- }
-
- return $.ajax({
-   url: 'http://localhost:80/rest/api/novosti',
-   type: 'PUT',
-   success: callback,
-   data: data,
-   contentType: type
- });
-}
-                    break;
+                
+                break;
                 
                     
                 case "delete":
                 
                
-                    break;
+                break;
                 default:
                     console.log("default");
             }
